@@ -1,33 +1,36 @@
-# Cooksy 🥬
+# Cooksy | کوکسی
 
-Cooksy is a food and grocery idea by Amirhossein Aslani. This repository currently hosts a minimal **Hello World / Coming Soon** website.
+**غذاتو انتخاب کن، موادش با ما!** An ingredient-kit ordering site: customers choose a recipe and servings, then request delivery of the ingredients instead of prepared food.
 
-- Public URL: https://cooksy.webigram.ir
-- Server: `wbg-001`
-- Application directory: `/opt/apps/cooksy`
-- App container / internal DNS: `cooksy-web`
-- Internal port: `80`
-- Docker network: existing external `app-net`
-- Health endpoint: `/healthz`
-- Edge routing: managed independently in `amdkna/nginx-edge-wbg-001`
-- CI/CD: Jenkins at `https://ci.webigram.ir`; node `deploy-wbg001`
+## Customer journeys
+
+- Home customers: name, telephone, delivery address, recipes and servings.
+- Business customers: company name, company contact, telephone, delivery address and recipes with larger servings.
+- Each recipe shows required ingredients (quantities returned by the API are per serving), estimated preparation time and **illustrative** per-serving prices.
+- A cart calculates estimated quantities/prices, and checkout saves a request in SQLite.
+- No payment integration, automated fulfillment, administrative UI or confirmation notifications yet. The order is a request, not a confirmed sale.
 
 ## Deployment
 
-The `Jenkinsfile` validates and builds changes on `main` using the isolated `build-docker-01` Jenkins agent. Only the trusted `production` branch deploys to `wbg-001` through `deploy-wbg001`. Configure a Jenkins multibranch pipeline with GitHub credentials to read this private repository and discover both branches.
+- Public host: https://cooksy.webigram.ir
+- Server: wbg-001
+- Directory: /opt/apps/cooksy
+- Container/DNS: cooksy-web
+- Container port: 8080
+- Edge config: nginx-edge-wbg-001/conf.d/cooksy.webigram.ir.conf (must forward to cooksy-web:8080)
+- Docker network: app-net
+- Persistent DB: named Compose volume cooksy_orders mounted at /data
+- Jenkins: main validates; production branch deploys on deploy-wbg001
+- API: GET /api/recipes, POST /api/orders, GET /healthz
 
-Deployment builds the small site image on the production Docker host (no registry credentials required), manages **only** the `cooksy` Compose project, waits for container health and verifies the route from `edge-nginx`. It tries to restore the previous Cooksy image on failure. It does **not** touch the shared edge configuration.
-
-Once deployed, test from the server:
+For local development:
 
 ```bash
-docker compose -f /opt/apps/cooksy/compose.yml ps
-docker exec edge-nginx wget -qO- http://cooksy-web/healthz
-curl -I https://cooksy.webigram.ir/
+COOKSY_DATA_DIR=/tmp/cooksy-test-data python3 app.py
 ```
 
-## DNS and TLS
+Then visit http://localhost:8080 (Python 3.12+ recommended). Orders are stored in SQLite under the configured data directory. The public API intentionally does not expose orders; only an authorized server operator can inspect the SQLite database.
 
-Point `cooksy.webigram.ir` to the public IP of `wbg-001`. The edge virtual host references the existing `/etc/nginx/ssl/webigram.ir/` wildcard certificate files; confirm that the installed certificate covers `cooksy.webigram.ir` before publishing. The edge workflow safely validates and reloads Nginx without restarting its container.
+**Security and production readiness:** This is an early MVP. Add authentication and authorization for future order-management endpoints, request throttling, anti-abuse controls, fulfillment workflow, true supplier prices, delivery coverage rules, privacy notice and retention policy before public marketing. The sample prices shown in the UI are placeholders.
 
-No public application ports, database or `.env` secrets are required for this placeholder.
+The Jenkins deployment only changes the Cooksy Compose project, retaining the named Docker volume for orders; it never restarts shared edge-nginx.

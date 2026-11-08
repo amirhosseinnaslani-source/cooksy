@@ -5,17 +5,21 @@ services:
     container_name: cooksy-web
     restart: unless-stopped
     expose:
-      - "80"
+      - "8080"
+    volumes:
+      - cooksy_orders:/data
     networks:
       app-net:
         aliases:
           - cooksy-web
     healthcheck:
-      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8080/healthz',timeout=2)"]
       interval: 15s
       timeout: 3s
       retries: 5
       start_period: 5s
+volumes:
+  cooksy_orders:
 networks:
   app-net:
     external: true

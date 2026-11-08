@@ -1,26 +1,66 @@
 <!doctype html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#183c2d">
-  <title>Cooksy — Hello World</title>
-  <style>
-    :root { color-scheme: light; font-family: system-ui, -apple-system, Segoe UI, sans-serif; }
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f6f3e9; color: #183c2d; }
-    main { max-width: 540px; padding: 48px 28px; text-align: center; }
-    .icon { font-size: 72px; }
-    h1 { font-size: clamp(3rem, 9vw, 5rem); letter-spacing: -0.06em; margin: 12px 0; }
-    p { font-size: 1.2rem; line-height: 1.6; }
-    .tag { display: inline-block; padding: 8px 18px; background: #d8e9d5; border-radius: 999px; font-weight: 650; }
-  </style>
+  <meta name="theme-color" content="#214c37">
+  <meta name="description" content="کوکسی؛ غذایت را انتخاب کن، مواد تازه و اندازه گیری شده را در خانه یا شرکت تحویل بگیر.">
+  <title>کوکسی | غذاتو انتخاب کن، موادش با ما</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
 </head>
 <body>
+  <div class="topbar">🥬 مواد اولیه تازه، به اندازه نیاز شما <span>✦ بدون غذای آماده، بدون خرید اضافه</span></div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/" aria-label="صفحه اصلی کوکسی"><span class="logo-mark">C</span><span>کوکسی<small>COOKSY</small></span></a>
+      <nav class="desktop-nav" aria-label="ناوبری اصلی"><a href="#how">چطور کار می کنه؟</a><a href="#recipes">غذاهای محبوب</a><a href="#why">چرا کوکسی؟</a></nav>
+      <button id="cartButton" class="cart-button" type="button" aria-label="باز کردن سبد خرید">🛍️ سبد خرید <span id="cartCount">۰</span></button>
+    </div>
+  </header>
   <main>
-    <div class="icon" aria-hidden="true">🥬</div>
-    <h1>Hello, Cooksy!</h1>
-    <p>Fresh ideas for better food. Our kitchen is warming up.</p>
-    <span class="tag">Coming soon</span>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">✳️ یه راه خوشمزه تر برای آشپزی</span>
+          <h1>چی دلت می خواد <em>بپزی؟</em><br>موادش با ما! <span class="spark">✳</span></h1>
+          <p class="hero-lead">قرمه سبزی، قیمه یا پاستا؟ تو فقط غذاتو انتخاب کن. ما مواد اولیه تازه و اندازه گیری شده رو برای آشپزی خودت می فرستیم دم در.</p>
+          <div class="customer-prompt">برای کی خرید می کنی؟</div>
+          <div class="audience-switch" role="group" aria-label="نوع مشتری">
+            <button class="audience active" data-kind="home" aria-pressed="true" type="button"><span>🏠</span><strong>خرید خانگی</strong><small>برای خانواده و دورهمی</small></button>
+            <button class="audience" data-kind="business" aria-pressed="false" type="button"><span>🏢</span><strong>خرید شرکتی</strong><small>برای تیم و سازمان</small></button>
+          </div>
+          <a class="primary-cta" href="#recipes">غذاها رو ببین <span>←</span></a>
+          <div class="hero-note" id="audienceHint">🥣 مواد اولیه برای ۱ تا ۲۰ نفر، دقیقا به اندازه نیازت</div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="floating-label top-label">🌿 تازه و خوش عطر</div>
+          <div class="food-plate"><span class="plate-emoji">🍲</span></div>
+          <div class="floating-label bottom-label">💚 آشپزی با عشق، خرید با کوکسی</div>
+          <span class="tiny-leaf leaf-one">✳</span><span class="tiny-leaf leaf-two">✳</span>
+        </div>
+      </div>
+    </section>
+    <section id="how" class="how-section">
+      <div class="container">
+        <div class="section-heading center"><span class="eyebrow">ساده تر از همیشه</span><h2>سه قدم تا یه غذای خونگی عالی</h2><p>دیگه لازم نیست برای یه غذا، ده تا فروشگاه رو بگردی!</p></div>
+        <div class="steps"><div class="step"><span class="step-icon">📖</span><span class="step-number">۰۱</span><h3>غذاتو انتخاب کن</h3><p>از منوی غذاهای خوشمزه، همونی که هوس کردی رو پیدا کن.</p></div><div class="step"><span class="step-icon">👩‍🍳</span><span class="step-number">۰۲</span><h3>تعداد نفرات رو بگو</h3><p>ما مواد اولیه هر غذا رو متناسب با تعداد نفرات حساب می کنیم.</p></div><div class="step"><span class="step-icon">📦</span><span class="step-number">۰۳</span><h3>مواد تازه رو تحویل بگیر</h3><p>مواد مورد نیاز می رسه دستت؛ آشپزی خوشمزه با خودت!</p></div></div>
+      </div>
+    </section>
+    <section id="recipes" class="recipes-section">
+      <div class="container">
+        <div class="section-heading"><span class="eyebrow">از امروز چی بپزیم؟</span><div class="section-row"><div><h2>غذاهای محبوب کوکسی <span>🍽️</span></h2><p>غذاتو انتخاب کن؛ مواد مورد نیازش رو هم ببین.</p></div><div class="filters" aria-label="فیلتر غذاها"><button type="button" class="filter active" data-filter="همه">همه</button><button type="button" class="filter" data-filter="ایرانی">ایرانی</button><button type="button" class="filter" data-filter="فرنگی">فرنگی</button><button type="button" class="filter" data-filter="سریع">سریع</button></div></div></div>
+        <div id="recipeGrid" class="recipe-grid"><p>در حال دریافت منوی غذاها...</p></div>
+        <p class="pricing-note">* قیمت ها فعلا نمونه و برای نمایش روش سفارش هستند. مبلغ نهایی و زمان تحویل پس از بررسی سفارش تایید می شود.</p>
+      </div>
+    </section>
+    <section id="why" class="why-section"><div class="container why-grid"><div><span class="eyebrow">چرا کوکسی؟</span><h2>مواد اولیه اش با ما،<br>عطر خونه با تو 💚</h2><p>نه غذای آماده می فرستیم، نه سبد خرید پر از چیزهای اضافه. هر چیزی که برای پخت غذای دلخواهت نیاز داری، یکجا و به اندازه.</p></div><div class="benefits"><div>🥬 <strong>مواد تازه</strong><small>مواد مورد نیاز یک غذا، یکجا</small></div><div>⚖️ <strong>به اندازه نفرات</strong><small>کمتر دورریز، خرید دقیق تر</small></div><div>🏢 <strong>مخصوص شرکت ها</strong><small>ثبت درخواست خریدهای گروهی</small></div><div>🧑‍🍳 <strong>دستپخت خودت</strong><small>غذای خونه، با انتخاب خودت</small></div></div></div></section>
   </main>
+  <footer><div class="container footer-inner"><div><strong>🥬 کوکسی</strong><p>غذاتو انتخاب کن، موادش با ما.</p></div><span>ساخته شده با عشق به آشپزی 💚</span></div></footer>
+  <div id="overlay" class="overlay" hidden></div>
+  <aside id="cartDrawer" class="drawer" aria-label="سبد خرید" aria-hidden="true" role="dialog" aria-modal="true"><div class="drawer-head"><div><span class="eyebrow">سبد خرید شما</span><h2>مواد غذاهات 🛒</h2></div><button type="button" id="closeCart" class="icon-button" aria-label="بستن">✕</button></div><div id="cartContents" class="drawer-body"></div><div class="drawer-footer"><div class="total-row"><span>جمع تقریبی</span><strong id="cartTotal">۰ تومان</strong></div><button id="checkoutButton" class="primary-cta full" type="button">ادامه و ثبت درخواست ←</button></div></aside>
+  <div id="checkoutModal" class="modal" role="dialog" aria-modal="true" aria-label="ثبت درخواست سفارش" hidden><div class="modal-head"><div><span class="eyebrow">قدم آخر</span><h2>ثبت درخواست سفارش</h2></div><button type="button" id="closeCheckout" class="icon-button" aria-label="بستن">✕</button></div><form id="checkoutForm" class="checkout-form"><p class="form-help">بعد از ثبت درخواست، برای تایید موجودی، قیمت و زمان تحویل با شما تماس می گیریم. پرداخت آنلاین در این نسخه فعال نیست.</p><label>نوع مشتری<select name="customer_type" id="customerType"><option value="home">خانگی</option><option value="business">شرکتی</option></select></label><div id="businessFields" hidden><label>نام شرکت *<input name="company_name" maxlength="120" placeholder="مثلا شرکت کوکسی"></label><label>نام رابط شرکت *<input name="contact_name" maxlength="120" placeholder="نام مسئول سفارش"></label></div><label>نام سفارش دهنده *<input name="customer_name" required maxlength="120" minlength="2" placeholder="نام و نام خانوادگی"></label><label>شماره تماس *<input name="phone" required inputmode="tel" minlength="10" maxlength="20" placeholder="۰۹۱۲۱۲۳۴۵۶۷"></label><label>آدرس تحویل *<textarea name="address" required minlength="8" maxlength="500" rows="2" placeholder="شهر، خیابان، پلاک و جزئیات"></textarea></label><label>توضیحات سفارش<textarea name="notes" maxlength="800" rows="2" placeholder="مثلا مواد بدون خرد کردن ارسال شوند"></textarea></label><p id="formMessage" class="form-message" role="status"></p><button type="submit" id="submitOrder" class="primary-cta full">ثبت درخواست سفارش ←</button></form></div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>

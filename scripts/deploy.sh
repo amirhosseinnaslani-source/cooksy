@@ -10,8 +10,7 @@ flock -n 9 || { echo "Cooksy deployment already running"; exit 1; }
 
 docker network inspect app-net >/dev/null
 mkdir -p "$APP_DIR"
-# Keep deployment-owned files together; leave persistent runtime files alone.
-install -m 0644 Dockerfile index.html healthz compose.yml .dockerignore "$APP_DIR/"
+install -m 0644 Dockerfile app.py index.html styles.css app.js favicon.svg compose.yml .dockerignore "$APP_DIR/"
 docker build -t "$IMAGE" "$APP_DIR"
 
 OLD_IMAGE="$(docker inspect -f '{{.Config.Image}}' cooksy-web 2>/dev/null || true)"
@@ -39,6 +38,6 @@ for i in $(seq 1 30); do
     sleep 2
 done
 [[ "$healthy" == "1" ]] || { echo "Cooksy did not become healthy" >&2; exit 1; }
-docker exec edge-nginx wget -q -O /dev/null http://cooksy-web/healthz
+docker exec edge-nginx wget -q -O /dev/null http://cooksy-web:8080/healthz
 trap - ERR
 echo "Cooksy deployed: $IMAGE"

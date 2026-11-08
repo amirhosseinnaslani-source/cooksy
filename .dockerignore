@@ -4,3 +4,6 @@ Jenkinsfile
 README.md
 scripts
 compose.yml
+.env
+*.sqlite3
+__pycache__
