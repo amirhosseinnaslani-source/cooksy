@@ -1,0 +1,22 @@
+name: cooksy
+services:
+  web:
+    image: ${COOKSY_IMAGE:-cooksy:local}
+    container_name: cooksy-web
+    restart: unless-stopped
+    expose:
+      - "80"
+    networks:
+      app-net:
+        aliases:
+          - cooksy-web
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+networks:
+  app-net:
+    external: true
+    name: app-net
